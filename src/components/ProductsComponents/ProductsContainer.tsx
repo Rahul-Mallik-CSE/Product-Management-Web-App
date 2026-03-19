@@ -2,6 +2,7 @@
 
 import { Title } from "../StyledComponents/Title";
 import { Input, Select, Space, message } from "antd";
+import styles from "../../scssstyles/NavBarStyles.module.scss";
 
 const ProductsContainer = () => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -19,6 +20,7 @@ const ProductsContainer = () => {
             placeholder="Search products"
             value=""
             style={{ width: 260 }}
+            className={styles.searchFieldView}
           />
 
           <Select
