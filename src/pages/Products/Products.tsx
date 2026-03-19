@@ -1,12 +1,12 @@
 /** @format */
 
+import ProductsContainer from "@/components/ProductsComponents/ProductsContainer";
 import { Container } from "@/components/StyledComponents/Container";
-import { Title } from "@/components/StyledComponents/Title";
 
 const Products = () => {
   return (
     <Container>
-      <Title>Products List</Title>
+      <ProductsContainer />
     </Container>
   );
 };
