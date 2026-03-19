@@ -44,12 +44,7 @@ export default function DashboardSidebar() {
         >
           <Link to="/products" className="flex gap-2">
             {isCollapsed ? (
-              <img
-                src="/roxnor-icon.png"
-                alt="Logo"
-                width={40}
-                height={40}
-              />
+              <img src="/roxnor-icon.png" alt="Logo" width={40} height={40} />
             ) : (
               <div className="mt-2 flex items-center gap-2 h-10">
                 <img
@@ -66,6 +61,7 @@ export default function DashboardSidebar() {
             isCollapsed ? "px-2 space-y-1 items-center" : "md:px-1 space-y-1"
           }
         >
+          {/* here called the navitems for nav buttons and passed the props to navitem component */}
           {navItems.map((item) => (
             <NavItem
               key={item.href}

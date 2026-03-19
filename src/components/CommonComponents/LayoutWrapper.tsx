@@ -14,9 +14,10 @@ export default function LayoutWrapper({
   return (
     <SidebarProvider>
       <DashboardSidebar />
-      <SidebarInset>
+      <SidebarInset className="overflow-x-hidden">
+        {/* NavBar will be rendered on all pages except the root ("/") due to its internal logic */}
         <NavBar />
-        <div className="flex-1 p-6">{children}</div>
+        <div className="w-full">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );

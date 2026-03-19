@@ -3,15 +3,7 @@
 import { Link } from "react-router-dom";
 import { SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
 import { cn } from "@/lib/utils";
-import type { LucideIcon } from "lucide-react";
-
-interface NavItemProps {
-  href: string;
-  icon: LucideIcon;
-  label: string;
-  active?: boolean;
-  collapsed?: boolean;
-}
+import type { NavItemProps } from "@/types/CommonTypes";
 
 function NavItem({
   href,
