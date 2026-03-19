@@ -1,6 +1,8 @@
 /** @format */
 
-/** Basic product fields used in list and summary views. */
+import type { TablePaginationConfig } from "antd";
+
+/** Basic product fields used in listings and summary views. */
 export interface Product {
   id: number;
   title: string;
@@ -10,7 +12,7 @@ export interface Product {
   category: string;
 }
 
-/** Response shape for paginated products API results. */
+/** API response shape for paginated products query results. */
 export interface ProductsResponse {
   products: Product[];
   total: number;
@@ -18,17 +20,49 @@ export interface ProductsResponse {
   limit: number;
 }
 
-/** Category metadata used for filtering and display. */
+/** Product category metadata used for filtering and categorization. */
 export interface Category {
   slug: string;
   name: string;
   url: string;
 }
 
-/** Query params used when requesting products from the API. */
+/** Query parameters for fetching products from the API. */
 export interface ProductsQueryParams {
   limit: number;
   skip: number;
   q?: string;
   category?: string;
+}
+
+/** Redux state shape for products management and filtering. */
+export interface ProductsState {
+  products: Product[];
+  categories: Category[];
+  total: number;
+  page: number;
+  pageSize: number;
+  search: string;
+  selectedCategory: string | undefined;
+  isEditDrawerOpen: boolean;
+  isLoading: boolean;
+  error: string | null;
+}
+
+/** Props for the products table component. */
+export interface ProductsTableProps {
+  data: Product[];
+  loading: boolean;
+  pagination: TablePaginationConfig;
+  onPaginationChange: (pagination: TablePaginationConfig) => void;
+  onView: (id: number) => void;
+}
+
+/** Column definition for product table display. */
+export interface ProductTableColumnDef {
+  title: string;
+  key: "title" | "price" | "rating" | "stock" | "category" | "action";
+  dataIndex?: keyof Product;
+  width?: number;
+  ellipsis?: boolean;
 }

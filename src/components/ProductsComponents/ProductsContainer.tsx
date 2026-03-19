@@ -2,31 +2,75 @@
 
 "use client";
 
-import { useState } from "react";
-import { Input, Select, Space } from "antd";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Input, Select, Space, message } from "antd";
+import type { TablePaginationConfig } from "antd";
 
 import { Title } from "@/components/StyledComponents/Title";
-import { useGetCategoriesQuery } from "@/redux/features/Products/ProductsAPI";
+import type { AppDispatch, RootState } from "@/redux/store";
+import {
+  useGetCategoriesQuery,
+  useGetProductsQuery,
+} from "@/redux/features/Products/ProductsAPI";
 import type { Category } from "@/types/ProductsTypes";
-import styles from "@/scssstyles/CommonStyles.module.scss";
+import {
+  setPagination,
+  setSearch,
+  setSelectedCategory,
+} from "@/redux/features/Products/ProductsSlice";
+import ProductsTable from "./ProductsTable";
 
 const ProductsContainer = () => {
-  const [search, setSearchValue] = useState("");
-  const [selectedCategory, setSelectedCategoryValue] = useState<string>("all");
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const [messageApi, contextHolder] = message.useMessage();
 
+  const { page, pageSize, search, selectedCategory } = useSelector(
+    (state: RootState) => state.products,
+  );
+
+  const queryParams = {
+    limit: pageSize,
+    skip: (page - 1) * pageSize,
+    q: search || undefined,
+    category: search ? undefined : selectedCategory,
+  };
+
+  const {
+    data: productsData,
+    isFetching,
+    isLoading: isProductsLoading,
+    isError,
+  } = useGetProductsQuery(queryParams);
   const { data: categoriesData } = useGetCategoriesQuery();
 
-  const handleSearch = (value: string) => {
-    const trimmedValue = value.trim();
-    if (trimmedValue) {
-      setSelectedCategoryValue("all");
+  React.useEffect(() => {
+    if (isError) {
+      messageApi.error("Failed to fetch products");
     }
-    setSearchValue(trimmedValue);
+  }, [isError, messageApi]);
+
+  const handleSearch = (value: string) => {
+    if (value.trim()) {
+      dispatch(setSelectedCategory(undefined));
+    }
+    dispatch(setSearch(value.trim()));
   };
 
   const handleCategoryChange = (value: string | undefined) => {
-    setSearchValue("");
-    setSelectedCategoryValue(value ?? "all");
+    dispatch(setSearch(""));
+    dispatch(setSelectedCategory(value && value !== "all" ? value : undefined));
+  };
+
+  const handleTableChange = (pagination: TablePaginationConfig) => {
+    dispatch(
+      setPagination({
+        page: pagination.current ?? 1,
+        pageSize: pagination.pageSize ?? pageSize,
+      }),
+    );
   };
 
   const categoryOptions = [
@@ -37,9 +81,15 @@ const ProductsContainer = () => {
     })),
   ];
 
+  const tableData = productsData?.products ?? [];
+  const tableTotal = productsData?.total ?? 0;
+  const isLoading = isProductsLoading || isFetching;
+
   return (
     <div className="w-full space-y-4">
-      <Title>Products Filters</Title>
+      {contextHolder}
+
+      <Title>Products List</Title>
 
       <div className="flex w-full justify-end">
         <Space wrap>
@@ -49,21 +99,32 @@ const ProductsContainer = () => {
             value={search}
             onChange={(event) => handleSearch(event.target.value)}
             onSearch={handleSearch}
-            style={{ width: 260 }}
-            className={styles.searchFieldView}
           />
 
           <Select
             allowClear
             placeholder="Select category"
             options={categoryOptions}
-            value={selectedCategory}
+            value={selectedCategory ?? "all"}
             onChange={handleCategoryChange}
-            style={{ width: 220 }}
-            className={styles.productViewButton}
           />
         </Space>
       </div>
+
+      <ProductsTable
+        data={tableData}
+        loading={isLoading}
+        onView={(id) => navigate(`/products/${id}`)}
+        onPaginationChange={handleTableChange}
+        pagination={{
+          current: page,
+          pageSize,
+          total: tableTotal,
+          showSizeChanger: true,
+          pageSizeOptions: ["10", "20", "30"],
+          showTotal: (value) => `Total ${value} products`,
+        }}
+      />
     </div>
   );
 };
