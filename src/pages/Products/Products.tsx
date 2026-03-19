@@ -1,14 +1,13 @@
 /** @format */
 
+import { Container } from "@/components/StyledComponents/Container";
 import { Title } from "@/components/StyledComponents/Title";
 
 const Products = () => {
   return (
-    <div>
-      <div className="mb-6">
-        <Title>Products List</Title>
-      </div>
-    </div>
+    <Container>
+      <Title>Products List</Title>
+    </Container>
   );
 };
 
