@@ -8,7 +8,7 @@ export const baseApi = createApi({
     baseUrl: import.meta.env.VITE_API_URL, // Use VITE_API_URL from .env for the base URL
   }),
 
-  tagTypes: [],
+  tagTypes: ["Products"],
   endpoints: () => ({}),
 });
 
