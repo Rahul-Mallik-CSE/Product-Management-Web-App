@@ -1,13 +1,10 @@
 /** @format */
 
-import { useLocation } from "react-router-dom";
+
 import { SidebarTrigger } from "../ui/sidebar";
 import styles from "../../scssstyles/NavBarStyles.module.scss";
 
-const routeTitles: Record<string, string> = {
-  "/products": "Products",
-  "/dashboard": "Dashboard",
-};
+
 
 const NavBar = () => {
   return (

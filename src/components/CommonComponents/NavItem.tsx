@@ -27,14 +27,14 @@ function NavItem({
         render={<Link to={href} />}
         className={cn(
           collapsed
-            ? "flex items-center justify-center px-2 py-3 transition-colors rounded-full w-12 h-10 mx-auto"
+            ? "flex items-center justify-center px-1 py-1 transition-colors rounded-md w-8 h-8 mx-auto"
             : "flex items-center gap-3 h-10 md:h-10 rounded-md p-3 transition-colors text-sm",
           active
             ? "bg-button text-primary hover:bg-button/80 font-medium border-4 border-button-border shadow-md"
             : "text-secondary hover:bg-muted hover:text-primary font-medium",
         )}
       >
-        <Icon size={collapsed ? 20 : 18} />
+        <Icon size={collapsed ? 16 : 18} />
         {!collapsed && <span className="text-base">{label}</span>}
       </SidebarMenuButton>
     </SidebarMenuItem>
