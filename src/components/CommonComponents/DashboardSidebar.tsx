@@ -25,7 +25,7 @@ export default function DashboardSidebar() {
       label: "Products",
     },
   ];
-
+  if (pathname == "/") return null;
   return (
     <Sidebar
       className={`shadow-none py-4 bg-background border-r border-none ${isCollapsed ? "px-1" : "px-4"}`}

@@ -1,12 +1,12 @@
 /** @format */
 
-
 import { SidebarTrigger } from "../ui/sidebar";
 import styles from "../../scssstyles/NavBarStyles.module.scss";
-
-
+import { useLocation } from "react-router-dom";
 
 const NavBar = () => {
+  const { pathname } = useLocation();
+  if (pathname == "/") return null;
   return (
     <div className={styles.navBarContainer}>
       <div className={styles.navBarInner}>
