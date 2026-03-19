@@ -9,6 +9,7 @@ import Providers from "./redux/Providers";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
+    {/* This is the redux provider  which wraps the entire application. */}
     <Providers>
       <BrowserRouter>
         <AppRoutes />
