@@ -18,6 +18,13 @@ export interface ProductsResponse {
   limit: number;
 }
 
+/** Category metadata used for filtering and display. */
+export interface Category {
+  slug: string;
+  name: string;
+  url: string;
+}
+
 /** Query params used when requesting products from the API. */
 export interface ProductsQueryParams {
   limit: number;

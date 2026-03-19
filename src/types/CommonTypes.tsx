@@ -1,6 +1,6 @@
 /** @format */
 
-/// This is the navbar types file.
+/// This is the navbar types file. 
 import type { LucideIcon } from "lucide-react";
 export interface NavItemProps {
   href: string;
