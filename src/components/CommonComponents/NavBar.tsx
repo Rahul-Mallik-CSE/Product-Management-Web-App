@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 
 const NavBar = () => {
   const { pathname } = useLocation();
-  if (pathname == "/") return null;
+  if (pathname == "/" || pathname == "/404") return null;
   return (
     <div className={styles.navBarContainer}>
       <div className={styles.navBarInner}>
