@@ -22,6 +22,7 @@ import {
 } from "@/redux/features/Products/ProductsSlice";
 import ProductsTable from "./ProductsTable";
 import styles from "@/scssstyles/CommonStyles.module.scss";
+import TableSkeleton from "./TableSkeleton";
 
 const ProductsContainer = () => {
   const navigate = useNavigate();
@@ -81,10 +82,9 @@ const ProductsContainer = () => {
       value: category.slug,
     })),
   ];
-
+  const isTableLoading = isProductsLoading || isFetching;
   const tableData = productsData?.products ?? [];
   const tableTotal = productsData?.total ?? 0;
-  const isLoading = isProductsLoading || isFetching;
 
   return (
     <div className="w-full space-y-4">
@@ -119,21 +119,27 @@ const ProductsContainer = () => {
         </Space>
       </div>
 
-      {/* This is the Products table called and passed the props to products table component */}
-      <ProductsTable
-        data={tableData}
-        loading={isLoading}
-        onView={(id) => navigate(`/products/${id}`)}
-        onPaginationChange={handleTableChange}
-        pagination={{
-          current: page,
-          pageSize,
-          total: tableTotal,
-          showSizeChanger: true,
-          pageSizeOptions: ["10", "20", "30"],
-          showTotal: (value) => `Total ${value} products`,
-        }}
-      />
+      {isTableLoading ? (
+        //This is the skeleton component for loading state of products table
+        <TableSkeleton />
+      ) : (
+        //  This is the Products table called and passed the props to products table component
+        <ProductsTable
+          data={tableData}
+          loading={false}
+          onView={(id) => navigate(`/products/${id}`)}
+          onPaginationChange={handleTableChange}
+          pagination={{
+            current: page,
+            pageSize,
+            total: tableTotal,
+            showSizeChanger: true,
+            pageSizeOptions: ["10", "20", "30"],
+            placement: ["bottomEnd"],
+            showTotal: (value) => `Total ${value} products`,
+          }}
+        />
+      )}
     </div>
   );
 };
