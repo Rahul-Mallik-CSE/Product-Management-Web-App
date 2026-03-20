@@ -4,7 +4,7 @@ import { Skeleton } from "antd";
 
 const DetailsPageSkeleton = () => {
   return (
-    <div className="w-full space-y-2">
+    <div className="w-full space-y-6">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <Skeleton.Button active size="small" className="w-9! min-w-9!" />
@@ -18,7 +18,7 @@ const DetailsPageSkeleton = () => {
           <Skeleton.Image
             active
             className="h-full! w-full!"
-            style={{ width: "60px", height: "60px" }}
+            style={{ width: "100%", height: "100%" }}
           />
         </div>
 
