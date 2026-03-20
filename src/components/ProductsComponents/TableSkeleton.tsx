@@ -1,7 +1,5 @@
 /** @format */
 
-"use client";
-
 import { Skeleton, Table } from "antd";
 import type { TableColumnsType } from "antd";
 import type { ProductTableColumnDef, SkeletonRow } from "@/types/ProductsTypes";
@@ -38,7 +36,6 @@ const productTableColumns: ProductTableColumnDef[] = [
     width: 120,
   },
 ];
-
 
 const TableSkeleton = () => {
   const columns: TableColumnsType<SkeletonRow> = productTableColumns.map(

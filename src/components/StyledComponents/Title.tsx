@@ -1,7 +1,5 @@
 /** @format */
 
-"use client";
-
 import styled from "styled-components";
 
 // Styled title component for consistent styling across the app

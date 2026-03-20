@@ -1,7 +1,5 @@
 /** @format */
 
-"use client";
-
 import { EyeOutlined } from "@ant-design/icons";
 import { Button, Table } from "antd";
 import type { TableColumnsType } from "antd";

@@ -109,3 +109,15 @@ export interface ProductTableColumnDef {
 export interface SkeletonRow {
   key: number;
 }
+
+// This is the props interface for the product details component
+export interface DetailsProps {
+  product: ProductDetails;
+}
+
+// This is the props interface for the image view component used in product details
+export interface ImageViewProps {
+  title: string;
+  thumbnail?: string;
+  images?: string[];
+}

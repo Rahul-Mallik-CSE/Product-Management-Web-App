@@ -1,7 +1,5 @@
 /** @format */
 
-"use client";
-
 import styled from "styled-components";
 // Styled container component for consistent layout across the app
 export const Container = styled.div`
