@@ -9,6 +9,7 @@ import Details from "./Details";
 import ImageView from "./ImageView";
 import styles from "@/scssstyles/CommonStyles.module.scss";
 import { Title } from "@/components/StyledComponents/Title";
+import DetailsPageSkeleton from "./DetailsPageSkeleton";
 
 const ProductDetailsContainer = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const ProductDetailsContainer = () => {
   const product = data as ProductDetails | undefined;
 
   if (isLoading || isFetching) {
-    return <div>Loading...</div>;
+    return <DetailsPageSkeleton />;
   }
 
   if (isError || !product) {
@@ -48,6 +49,9 @@ const ProductDetailsContainer = () => {
           />
           <Title>Product Details</Title>
         </div>
+        <Button type="default" className={styles.productViewButton}>
+          Edit Product
+        </Button>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
