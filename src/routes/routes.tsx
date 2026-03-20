@@ -11,8 +11,8 @@ const ProductDetails = lazy(() => import("@/pages/Products/ProductDetails"));
 
 const AppRoutes = () => {
   return (
-    <LayoutWrapper>
-      <Suspense fallback={<LoadingPage />}>
+    <Suspense fallback={<LoadingPage />}>
+      <LayoutWrapper>
         <Routes>
           {/* Redirect root to products */}
           <Route path="/" element={<Navigate to="/products" replace />} />
@@ -24,8 +24,8 @@ const AppRoutes = () => {
           {/* 404 fallback */}
           <Route path="*" element={<Navigate to="/products" replace />} />
         </Routes>
-      </Suspense>
-    </LayoutWrapper>
+      </LayoutWrapper>
+    </Suspense>
   );
 };
 
