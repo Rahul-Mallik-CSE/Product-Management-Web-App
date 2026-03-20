@@ -29,8 +29,16 @@ const EditDrawer = ({ open, form, onClose, onSave }: EditDrawerProps) => {
           label="Title"
           name="title"
           rules={[
-            { required: true, message: "Please enter a title" },
+            { required: true, message: "Title is required" },
             { min: 3, message: "Title must be at least 3 characters" },
+            {
+              validator: async (_, value) => {
+                if (typeof value !== "string") return;
+                if (!/[a-zA-Z]/.test(value)) {
+                  throw new Error("Title must include letters");
+                }
+              },
+            },
           ]}
         >
           <Input placeholder="Enter product title" maxLength={80} />
@@ -40,8 +48,22 @@ const EditDrawer = ({ open, form, onClose, onSave }: EditDrawerProps) => {
           label="Description"
           name="description"
           rules={[
-            { required: true, message: "Please enter a description" },
-            { min: 10, message: "Description must be at least 10 characters" },
+            { required: true, message: "Description is required" },
+            {
+              min: 20,
+              message: "Description must be at least 20 characters",
+            },
+            {
+              validator: async (_, value) => {
+                if (typeof value !== "string") return;
+                const words = value.trim().split(/\s+/).filter(Boolean);
+                if (words.length < 4) {
+                  throw new Error(
+                    "Description should contain at least 4 words",
+                  );
+                }
+              },
+            },
           ]}
         >
           <Input.TextArea rows={4} placeholder="Enter product description" />
@@ -51,42 +73,70 @@ const EditDrawer = ({ open, form, onClose, onSave }: EditDrawerProps) => {
           label="Price"
           name="price"
           rules={[
-            { required: true, message: "Please enter a price" },
-            { type: "number", min: 0, message: "Price must be greater than 0" },
+            { required: true, message: "Price is required" },
+            {
+              validator: async (_, value) => {
+                if (typeof value !== "number") return;
+                if (value < 0) {
+                  throw new Error("Price cannot be negative");
+                }
+              },
+            },
           ]}
         >
-          <InputNumber className="w-full!" step={0.01} min={0} />
+          <InputNumber className="w-full!" step={0.01} style={{ width: '100%' }} />
         </Form.Item>
 
         <Form.Item
           label="Rating"
           name="rating"
           rules={[
-            { required: true, message: "Please enter a rating" },
+            { required: true, message: "Rating is required" },
             {
-              type: "number",
-              min: 0,
-              max: 5,
-              message: "Rating must be between 0 and 5",
+              validator: async (_, value) => {
+                if (typeof value !== "number") return;
+                if (value < 0) {
+                  throw new Error("Rating cannot be negative");
+                }
+              },
+            },
+            {
+              validator: async (_, value) => {
+                if (typeof value !== "number") return;
+                if (value > 5) {
+                  throw new Error("Rating cannot be more than 5");
+                }
+              },
             },
           ]}
         >
-          <InputNumber className="w-full!" step={0.1} min={0} max={5} />
+          <InputNumber className="w-full!" step={0.1} style={{ width: '100%' }} />
         </Form.Item>
 
         <Form.Item
           label="Stock"
           name="stock"
           rules={[
-            { required: true, message: "Please enter stock quantity" },
+            { required: true, message: "Stock is required" },
             {
-              type: "number",
-              min: 0,
-              message: "Stock must be 0 or greater",
+              validator: async (_, value) => {
+                if (typeof value !== "number") return;
+                if (value < 0) {
+                  throw new Error("Stock cannot be negative");
+                }
+              },
+            },
+            {
+              validator: async (_, value) => {
+                if (typeof value !== "number") return;
+                if (!Number.isInteger(value)) {
+                  throw new Error("Stock must be a whole number");
+                }
+              },
             },
           ]}
         >
-          <InputNumber className="w-full!" step={1} min={0} precision={0} />
+          <InputNumber className="w-full!" step={1} style={{ width: '100%' }} />
         </Form.Item>
       </Form>
     </Drawer>
