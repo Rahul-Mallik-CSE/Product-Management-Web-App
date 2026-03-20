@@ -7,6 +7,7 @@ import LayoutWrapper from "@/components/CommonComponents/LayoutWrapper";
 
 // Lazy load pages for code splitting and better performance
 const Products = lazy(() => import("@/pages/Products/Products"));
+const ProductDetails = lazy(() => import("@/pages/Products/ProductDetails"));
 
 const AppRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const AppRoutes = () => {
 
           {/* Products routes */}
           <Route path="/products" element={<Products />} />
+          <Route path="/products/:id" element={<ProductDetails />} />
 
           {/* 404 fallback */}
           <Route path="*" element={<Navigate to="/products" replace />} />
