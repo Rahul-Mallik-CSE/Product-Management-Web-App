@@ -24,6 +24,9 @@ const ProductDetailsContainer = () => {
           />
           <Title>Product Details</Title>
         </div>
+        <Button type="default" className={styles.productViewButton}>
+          Edit Product
+        </Button>
       </div>
     </div>
   );
