@@ -10,6 +10,7 @@ import type {
   ProductTableColumnDef,
   ProductsTableProps,
 } from "@/types/ProductsTypes";
+import styles from "@/scssstyles/CommonStyles.module.scss";
 
 const productTableColumns: ProductTableColumnDef[] = [
   {
@@ -79,7 +80,11 @@ const ProductsTable = ({
         return {
           ...column,
           render: (_: unknown, record: Product) => (
-            <Button icon={<EyeOutlined />} onClick={() => onView(record.id)}>
+            <Button
+              icon={<EyeOutlined />}
+              onClick={() => onView(record.id)}
+              className={styles.productViewButton}
+            >
               View
             </Button>
           ),
@@ -92,6 +97,7 @@ const ProductsTable = ({
 
   return (
     <Table<Product>
+      className={styles.paginationButton}
       rowKey="id"
       columns={columns}
       dataSource={data}

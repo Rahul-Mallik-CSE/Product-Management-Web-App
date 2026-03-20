@@ -21,6 +21,7 @@ import {
   setSelectedCategory,
 } from "@/redux/features/Products/ProductsSlice";
 import ProductsTable from "./ProductsTable";
+import styles from "@/scssstyles/CommonStyles.module.scss";
 
 const ProductsContainer = () => {
   const navigate = useNavigate();
@@ -99,6 +100,7 @@ const ProductsContainer = () => {
             value={search}
             onChange={(event) => handleSearch(event.target.value)}
             onSearch={handleSearch}
+            className={styles.searchFieldView}
           />
 
           <Select
@@ -107,6 +109,8 @@ const ProductsContainer = () => {
             options={categoryOptions}
             value={selectedCategory ?? "all"}
             onChange={handleCategoryChange}
+            style={{ width: 200 }}
+            className={styles.productViewButton}
           />
         </Space>
       </div>

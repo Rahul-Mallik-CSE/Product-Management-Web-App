@@ -12,6 +12,8 @@
     color: #bb9a06 !important;
   }
 }
+
+// Search field styles to match the overall theme of the application, ensuring a cohesive user experience across all components.
 .searchFieldView {
   :global(.ant-input-affix-wrapper) {
     border-color: #fef08a !important;
@@ -69,4 +71,92 @@
 ) {
   color: #bb9a06 !important;
   background-color: #fefce8 !important;
+}
+
+// Pagination button styles to match the overall theme of the application, ensuring a cohesive user experience across all components.
+.paginationButton {
+  :global(.ant-pagination-item) {
+    border-color: #fef08a !important;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  :global(.ant-pagination-item) {
+    a {
+      color: #000000;
+      transition: color 0.2s ease;
+    }
+  }
+
+  :global(.ant-pagination-item:hover) {
+    border-color: #bb9a06 !important;
+    background-color: #fefce8;
+  }
+
+  :global(.ant-pagination-item:hover a) {
+    color: #bb9a06 !important;
+  }
+
+  :global(.ant-pagination-item-active) {
+    border-color: #bb9a06 !important;
+    background-color: #fefce8;
+  }
+
+  :global(.ant-pagination-item-active a) {
+    color: #bb9a06 !important;
+  }
+
+  :global(.ant-pagination-prev:hover .ant-pagination-item-link),
+  :global(.ant-pagination-next:hover .ant-pagination-item-link) {
+    color: #bb9a06 !important;
+    border-color: #bb9a06 !important;
+  }
+
+  :global(
+    .ant-pagination-options-size-changer.ant-select .ant-select-selector
+  ) {
+    border-color: #fef08a !important;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  :global(
+    .ant-pagination-options-size-changer.ant-select:hover .ant-select-selector
+  ),
+  :global(
+    .ant-pagination-options-size-changer.ant-select.ant-select-focused
+      .ant-select-selector
+  ),
+  :global(
+    .ant-pagination-options-size-changer.ant-select.ant-select-open
+      .ant-select-selector
+  ) {
+    border-color: #bb9a06 !important;
+    box-shadow: 0 0 0 2px rgb(187 154 6 / 0.2) !important;
+  }
+
+  :global(
+    .ant-pagination-options-size-changer.ant-select:hover
+      .ant-select-selection-item
+  ),
+  :global(
+    .ant-pagination-options-size-changer.ant-select.ant-select-open
+      .ant-select-selection-item
+  ) {
+    color: #bb9a06 !important;
+  }
+
+  :global(
+    .ant-pagination-options-size-changer.ant-select:hover .ant-select-arrow
+  ),
+  :global(
+    .ant-pagination-options-size-changer.ant-select.ant-select-open
+      .ant-select-arrow
+  ) {
+    color: #bb9a06 !important;
+  }
 }
