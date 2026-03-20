@@ -66,3 +66,8 @@ export interface ProductTableColumnDef {
   width?: number;
   ellipsis?: boolean;
 }
+
+/** Interface for the skeleton row used in the products table component. */
+export interface SkeletonRow {
+  key: number;
+}

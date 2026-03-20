@@ -88,12 +88,15 @@ const ProductsContainer = () => {
 
   return (
     <div className="w-full space-y-4">
+      {/* This the the antd message component for showing the error message when fetching products fails and passed the props to message component */}
       {contextHolder}
 
+      {/* Used the Title Styled component for the heading of the products page. */}
       <Title>Products List</Title>
 
       <div className="flex w-full justify-end">
         <Space wrap>
+          {/* This is the search field for products and passed the props to search component  */}
           <Input.Search
             allowClear
             placeholder="Search products"
@@ -103,6 +106,7 @@ const ProductsContainer = () => {
             className={styles.searchFieldView}
           />
 
+          {/* This is the select field for category filter and passed the props to select component */}
           <Select
             allowClear
             placeholder="Select category"
@@ -115,6 +119,7 @@ const ProductsContainer = () => {
         </Space>
       </div>
 
+      {/* This is the Products table called and passed the props to products table component */}
       <ProductsTable
         data={tableData}
         loading={isLoading}

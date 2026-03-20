@@ -12,6 +12,7 @@ import type {
 } from "@/types/ProductsTypes";
 import styles from "@/scssstyles/CommonStyles.module.scss";
 
+// This is the products table component which is used to display the products in a table format and passed the props to table component
 const productTableColumns: ProductTableColumnDef[] = [
   {
     title: "Title",
@@ -53,6 +54,7 @@ const ProductsTable = ({
   onPaginationChange,
   onView,
 }: ProductsTableProps) => {
+  // this is the columns definition for the products table and added custom render for price, rating, category and action column to display the data in a better format and passed the props to table component
   const columns: TableColumnsType<Product> = productTableColumns.map(
     (column) => {
       if (column.key === "price") {
@@ -80,6 +82,7 @@ const ProductsTable = ({
         return {
           ...column,
           render: (_: unknown, record: Product) => (
+            // This is the view button for each product in the table and passed the props to button component
             <Button
               icon={<EyeOutlined />}
               onClick={() => onView(record.id)}
@@ -96,6 +99,7 @@ const ProductsTable = ({
   );
 
   return (
+    // This is the antd table component for displaying the products in a table format and passed the props to table component
     <Table<Product>
       className={styles.paginationButton}
       rowKey="id"
