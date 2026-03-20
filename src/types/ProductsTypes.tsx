@@ -12,6 +12,44 @@ export interface Product {
   category: string;
 }
 
+/** Detailed product information for product details view. */
+export interface ProductDetails extends Product {
+  description: string;
+  price: number;
+  discountPercentage: number;
+  rating: number;
+  stock: number;
+  tags: string[];
+  brand: string;
+  sku: string;
+  weight: number;
+  dimensions: {
+    width: number;
+    height: number;
+    depth: number;
+  };
+  warrantyInformation: string;
+  shippingInformation: string;
+  availabilityStatus: string;
+  reviews: Array<{
+    rating: number;
+    comment: string;
+    date: string;
+    reviewerName: string;
+    reviewerEmail: string;
+  }>;
+  returnPolicy: string;
+  minimumOrderQuantity: number;
+  meta: {
+    createdAt: string;
+    updatedAt: string;
+    barcode: string;
+    qrCode: string;
+  };
+  thumbnail: string;
+  images: string[];
+}
+
 /** API response shape for paginated products query results. */
 export interface ProductsResponse {
   products: Product[];

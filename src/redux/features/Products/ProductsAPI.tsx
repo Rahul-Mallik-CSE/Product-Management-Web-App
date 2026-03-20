@@ -5,6 +5,7 @@ import type {
   Category,
   ProductsQueryParams,
   ProductsResponse,
+  ProductDetails,
 } from "@/types/ProductsTypes";
 
 const productsApi = baseApi.injectEndpoints({
@@ -45,8 +46,21 @@ const productsApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Categories"],
     }),
+
+    // This is the endpoint for fetching detailed information about a single product by its ID.
+    getProductById: builder.query<ProductDetails, number>({
+      query: (id) => ({
+        url: `/products/${id}`,
+      }),
+      keepUnusedDataFor: 300,
+      providesTags: ["Products"],
+    }),
   }),
 });
 
-export const { useGetProductsQuery, useGetCategoriesQuery } = productsApi;
+export const {
+  useGetProductsQuery,
+  useGetCategoriesQuery,
+  useGetProductByIdQuery,
+} = productsApi;
 export default productsApi;
