@@ -1,11 +1,14 @@
 /** @format */
 
-"use client";
-
 import { Container } from "@/components/StyledComponents/Container";
+import ProductDetailsContainer from "@/components/ProductsComponents/ProductsDetailsComponents/ProductDetailsContainer";
 
 const ProductDetails = () => {
-  return <Container>Product details</Container>;
+  return (
+    <Container>
+      <ProductDetailsContainer />
+    </Container>
+  );
 };
 
 export default ProductDetails;
