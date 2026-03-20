@@ -15,6 +15,24 @@
   }
 }
 
+//This is the style for the editdrawer save button
+.SaveButton {
+  background-color: #facc15 !important;
+  border-color: #facc15 !important;
+  color: #000000 !important;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background-color: #bb9a06 !important;
+    border-color: #bb9a06 !important;
+    color: #ffffff !important;
+  }
+}
+
 // Search field styles to match the overall theme of the application, ensuring a cohesive user experience across all components.
 .searchFieldView {
   :global(.ant-input-affix-wrapper) {

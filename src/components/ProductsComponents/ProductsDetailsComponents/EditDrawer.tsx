@@ -20,7 +20,9 @@ const EditDrawer = ({ open, form, onClose, onSave }: EditDrawerProps) => {
           <Button onClick={onClose} className={styles.productViewButton}>
             Cancel
           </Button>
-          <Button onClick={onSave}>Save</Button>
+          <Button onClick={onSave} className={styles.SaveButton}>
+            Save
+          </Button>
         </Space>
       }
     >
@@ -84,7 +86,11 @@ const EditDrawer = ({ open, form, onClose, onSave }: EditDrawerProps) => {
             },
           ]}
         >
-          <InputNumber className="w-full!" step={0.01} style={{ width: '100%' }} />
+          <InputNumber
+            className="w-full!"
+            step={0.01}
+            style={{ width: "100%" }}
+          />
         </Form.Item>
 
         <Form.Item
@@ -110,7 +116,11 @@ const EditDrawer = ({ open, form, onClose, onSave }: EditDrawerProps) => {
             },
           ]}
         >
-          <InputNumber className="w-full!" step={0.1} style={{ width: '100%' }} />
+          <InputNumber
+            className="w-full!"
+            step={0.1}
+            style={{ width: "100%" }}
+          />
         </Form.Item>
 
         <Form.Item
@@ -136,7 +146,7 @@ const EditDrawer = ({ open, form, onClose, onSave }: EditDrawerProps) => {
             },
           ]}
         >
-          <InputNumber className="w-full!" step={1} style={{ width: '100%' }} />
+          <InputNumber className="w-full!" step={1} style={{ width: "100%" }} />
         </Form.Item>
       </Form>
     </Drawer>
