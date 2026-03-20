@@ -1,27 +1,93 @@
 /** @format */
 
-import { Alert, Button } from "antd";
+import React from "react";
+import { Alert, Button, Form, message } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetProductByIdQuery } from "@/redux/features/Products/ProductsAPI";
-import type { ProductDetails } from "@/types/ProductsTypes";
+import { setEditDrawerOpen } from "@/redux/features/Products/ProductsSlice";
+import type { AppDispatch, RootState } from "@/redux/store";
+import type {
+  EditProductFormValues,
+  ProductDetails,
+} from "@/types/ProductsTypes";
 import Details from "./Details";
+import EditDrawer from "./EditDrawer";
 import ImageView from "./ImageView";
+import DetailsPageSkeleton from "./DetailsPageSkeleton";
 import styles from "@/scssstyles/CommonStyles.module.scss";
 import { Title } from "@/components/StyledComponents/Title";
-import DetailsPageSkeleton from "./DetailsPageSkeleton";
 
 const ProductDetailsContainer = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const productId = Number(id);
+  const dispatch = useDispatch<AppDispatch>();
+  const [messageApi, contextHolder] = message.useMessage();
+  const [form] = Form.useForm<EditProductFormValues>();
+
+  const isEditDrawerOpen = useSelector(
+    (state: RootState) => state.products.isEditDrawerOpen,
+  );
 
   const { data, isLoading, isFetching, isError, error } =
     useGetProductByIdQuery(productId, {
       skip: Number.isNaN(productId) || productId <= 0,
     });
 
+  React.useEffect(() => {
+    if (data) {
+      form.setFieldsValue({
+        title: data.title,
+        description: data.description,
+        price: data.price,
+        rating: data.rating,
+        stock: data.stock,
+      });
+    }
+  }, [data, form]);
+
   const product = data as ProductDetails | undefined;
+
+  const handleOpenDrawer = () => {
+    dispatch(setEditDrawerOpen(true));
+  };
+
+  const handleCloseDrawer = () => {
+    dispatch(setEditDrawerOpen(false));
+  };
+
+  const handleSave = async () => {
+    try {
+      await form.validateFields();
+      messageApi.success("Frontend-only edit validated successfully.");
+      dispatch(setEditDrawerOpen(false));
+    } catch (errorInfo: unknown) {
+      if (
+        typeof errorInfo === "object" &&
+        errorInfo !== null &&
+        "errorFields" in errorInfo &&
+        Array.isArray((errorInfo as { errorFields?: unknown[] }).errorFields)
+      ) {
+        const fields = (
+          errorInfo as { errorFields: Array<{ errors?: string[] }> }
+        ).errorFields;
+        const validationMessages = fields
+          .flatMap((field) => field.errors ?? [])
+          .filter(Boolean);
+
+        messageApi.error(
+          validationMessages.length > 0
+            ? validationMessages[0]
+            : "Please fix validation errors before saving.",
+        );
+        return;
+      }
+
+      messageApi.error("Please fix validation errors before saving.");
+    }
+  };
 
   if (isLoading || isFetching) {
     return <DetailsPageSkeleton />;
@@ -38,6 +104,8 @@ const ProductDetailsContainer = () => {
 
   return (
     <div className="w-full space-y-6">
+      {contextHolder}
+
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Button
@@ -49,7 +117,11 @@ const ProductDetailsContainer = () => {
           />
           <Title>Product Details</Title>
         </div>
-        <Button type="default" className={styles.productViewButton}>
+        <Button
+          type="default"
+          onClick={handleOpenDrawer}
+          className={styles.productViewButton}
+        >
           Edit Product
         </Button>
       </div>
@@ -62,6 +134,13 @@ const ProductDetailsContainer = () => {
         />
         <Details product={product} />
       </div>
+
+      <EditDrawer
+        open={isEditDrawerOpen}
+        form={form}
+        onClose={handleCloseDrawer}
+        onSave={handleSave}
+      />
     </div>
   );
 };

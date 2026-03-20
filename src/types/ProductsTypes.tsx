@@ -1,6 +1,6 @@
 /** @format */
 
-import type { TablePaginationConfig } from "antd";
+import type { FormInstance, TablePaginationConfig } from "antd";
 
 /** Basic product fields used in listings and summary views. */
 export interface Product {
@@ -120,4 +120,21 @@ export interface ImageViewProps {
   title: string;
   thumbnail?: string;
   images?: string[];
+}
+
+//this is the edit form values interface for the edit product drawer component
+export interface EditProductFormValues {
+  title: string;
+  description: string;
+  price: number;
+  rating: number;
+  stock: number;
+}
+
+//this is the props interface for the edit product drawer component
+export interface EditDrawerProps {
+  open: boolean;
+  form: FormInstance<EditProductFormValues>;
+  onClose: () => void;
+  onSave: () => void;
 }
